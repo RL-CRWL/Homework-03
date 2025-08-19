@@ -50,7 +50,7 @@ class GridWorldMDP:
             new_state = self.current_state
         
         if self.current_state == self.goal_state:
-            reward = 20
+            reward = 20 - 1
             done = True
         else:
             reward = -1
@@ -119,7 +119,6 @@ def policy_evaluation_inplace(env, policy, gamma=1.0, theta=0.01, max_iterations
 
 def policy_evaluation_two_array(env, policy, gamma=1.0, theta=0.01, max_iterations=10000):
     V_old = defaultdict(float)
-    #set goal to be 0
     V_old[env.goal_state] = 0
     iterations = 0
     
