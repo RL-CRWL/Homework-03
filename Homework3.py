@@ -180,7 +180,7 @@ def run_experiments():
         if state == env.goal_state:
             policy[state] = [0, 0, 0, 0]  #no actions at goal state
         else:
-            policy[state] = [0.25, 0.25, 0.25, 0.25]  #uniform random policy - each state has 1/4 chance to be picked
+            policy[state] = [0.25, 0.25, 0.25, 0.25]  #each state has 1/4 chance to be picked
     
     #heatmap for gamma = 1
     V_inplace, iterations_1 = policy_evaluation_inplace(env, policy, gamma=0.9999999)
@@ -241,8 +241,8 @@ def run_experiments():
     
     print("\nResults:",
           f"\nDiscount rates: {gammas}",
-          f"\nIn-place iterations: {inplace_iterations}",
-          f"\nTwo-array iterations: {two_array_iterations}")
+          f"\nIn-place iterations until convergence: {inplace_iterations}",
+          f"\nTwo-array iterations until convergence: {two_array_iterations}")
     
     return inplace_iterations, two_array_iterations, gammas
 
