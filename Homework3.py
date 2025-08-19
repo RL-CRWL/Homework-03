@@ -19,7 +19,7 @@ class GridWorldMDP:
         
         self.obstacles = set()
         
-        self.initial_state = (3, 3)
+        self.initial_state = (3, 0)
         self.goal_state = (0, 0)
         self.current_state = self.initial_state
     
@@ -50,7 +50,7 @@ class GridWorldMDP:
             new_state = self.current_state
         
         if self.current_state == self.goal_state:
-            reward = 0
+            reward = 20
             done = True
         else:
             reward = -1
@@ -98,7 +98,7 @@ def policy_evaluation_inplace(env, policy, gamma=1.0, theta=0.01, max_iterations
                 
                 #reward
                 if next_state == env.goal_state:
-                    reward = 0
+                    reward = 20
                 else:
                     reward = -1
                 
@@ -155,7 +155,7 @@ def policy_evaluation_two_array(env, policy, gamma=1.0, theta=0.01, max_iteratio
                 
                 #reward
                 if next_state == env.goal_state:
-                    reward = 0
+                    reward = 20
                 else:
                     reward = -1
                 
