@@ -175,7 +175,7 @@ def policy_evaluation_two_array(env, policy, gamma=1.0, theta=0.01, max_iteratio
         #update old value function
         V_old = V_new.copy()
         
-        # Check for convergence
+        #check for convergence
         if delta < theta:
             break
     
@@ -188,9 +188,9 @@ def main():
     policy = defaultdict(list)
     for state in env.get_all_states():
         if state == env.goal_state:
-            policy[state] = [0, 0, 0, 0]  # Terminal state has no actions
+            policy[state] = [0, 0, 0, 0]  #no actions at goal state
         else:
-            policy[state] = [0.25, 0.25, 0.25, 0.25]  # Uniform random policy
+            policy[state] = [0.25, 0.25, 0.25, 0.25]  #uniform random policy
     
     #heatmap for γ = 1
     V_inplace, iterations_1 = policy_evaluation_inplace(env, policy, gamma=0.9999999)
