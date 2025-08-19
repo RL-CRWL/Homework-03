@@ -68,7 +68,6 @@ class GridWorldMDP:
 
 def policy_evaluation_inplace(env, policy, gamma=1.0, theta=0.01, max_iterations=10000):
     V = defaultdict(float)
-    #set goal to 0
     V[env.goal_state] = 0
     iterations = 0
     
@@ -96,9 +95,9 @@ def policy_evaluation_inplace(env, policy, gamma=1.0, theta=0.01, max_iterations
                 if not env.is_valid_state(next_state):
                     next_state = state
                 
-                #reward
+                #reward (20 for goal -1 for entering state)
                 if next_state == env.goal_state:
-                    reward = 20
+                    reward = 20 - 1
                 else:
                     reward = -1
                 
@@ -126,7 +125,6 @@ def policy_evaluation_two_array(env, policy, gamma=1.0, theta=0.01, max_iteratio
     
     while iterations < max_iterations:
         V_new = defaultdict(float)
-        #goal state stays 0
         V_new[env.goal_state] = 0
         delta = 0
         iterations += 1
@@ -152,7 +150,7 @@ def policy_evaluation_two_array(env, policy, gamma=1.0, theta=0.01, max_iteratio
                 
                 #reward
                 if next_state == env.goal_state:
-                    reward = 20
+                    reward = 20 - 1
                 else:
                     reward = -1
                 
