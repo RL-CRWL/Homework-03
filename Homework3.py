@@ -105,7 +105,7 @@ def policy_evaluation_inplace(env, policy, gamma=1.0, theta=0.01, max_iterations
                 #Bellman equation
                 next_value = V[next_state]
                 
-                contribution = policy[state][action] * (reward + gamma * next_value)
+                contribution = policy[state][action]*(reward + gamma*next_value)
                 new_v += contribution
             
             #update value function in-place
@@ -158,8 +158,7 @@ def policy_evaluation_two_array(env, policy, gamma=1.0, theta=0.01, max_iteratio
                 
                 #Bellman equation
                 next_value = V_old[next_state]
-                
-                contribution = policy[state][action] * (reward + gamma * next_value)
+                contribution = policy[state][action]*(reward + gamma*next_value)
                 new_v += contribution
             
             #update value function
@@ -175,7 +174,7 @@ def policy_evaluation_two_array(env, policy, gamma=1.0, theta=0.01, max_iteratio
     
     return V_old, iterations
 
-def main():
+def run_experiments():
     env = GridWorldMDP(size=4)
     
     #uniform random policy
@@ -186,7 +185,7 @@ def main():
         else:
             policy[state] = [0.25, 0.25, 0.25, 0.25]  #uniform random policy
     
-    #heatmap for γ = 1
+    #heatmap for gamma = 1
     V_inplace, iterations_1 = policy_evaluation_inplace(env, policy, gamma=0.9999999)
     
     #convert value function to 2D array for heatmap
@@ -198,17 +197,16 @@ def main():
     plt.figure(figsize=(8, 6))
     im = plt.imshow(value_grid, cmap='viridis')
     plt.colorbar(im, label='Value')
-    plt.title('Value Function Heatmap (γ ≈ 1)')
+    plt.title('Value Function Heatmap (gamma approximately 1)')
     plt.xlabel('Column')
     plt.ylabel('Row')
     
     for i in range(env.size):
         for j in range(env.size):
-            text = plt.text(j, i, f'{value_grid[i, j]:.1f}',
-                           ha="center", va="center", color="w")
+            text = plt.text(j, i, f'{value_grid[i, j]:.1f}', ha="center", va="center", color="w")
     
     plt.tight_layout()
-    plt.savefig('value_heatmap_gamma1.png', dpi=150, bbox_inches='tight')
+    plt.savefig('heatmap.png', dpi=150, bbox_inches='tight')
     plt.close()
     
     #generate discount rates
@@ -218,8 +216,6 @@ def main():
     two_array_iterations = []
     
     for i, gamma in enumerate(gammas):
-        print(f"Processing γ = {gamma:.4f} ({i+1}/{len(gammas)})")
-        
         #don't use values too close to 1
         if gamma > 0.999:
             gamma_adj = 0.999
@@ -236,7 +232,7 @@ def main():
     plt.figure(figsize=(10, 6))
     plt.plot(gammas, inplace_iterations, 'o-', label='In-place', linewidth=2)
     plt.plot(gammas, two_array_iterations, 's-', label='Two-array', linewidth=2)
-    plt.xlabel('Discount Rate (γ)')
+    plt.xlabel('Discount Rate (gamma)')
     plt.ylabel('Iterations to Convergence')
     plt.title('Policy Evaluation Convergence Comparison')
     plt.legend()
@@ -246,12 +242,12 @@ def main():
     plt.savefig('convergence_comparison.png', dpi=150, bbox_inches='tight')
     plt.close()
     
-    print("\nResults:")
-    print(f"Discount rates: {gammas}")
-    print(f"In-place iterations: {inplace_iterations}")
-    print(f"Two-array iterations: {two_array_iterations}")
+    print("\nResults:",
+          f"\nDiscount rates: {gammas}",
+          f"\nIn-place iterations: {inplace_iterations}",
+          f"\nTwo-array iterations: {two_array_iterations}")
     
     return inplace_iterations, two_array_iterations, gammas
 
 if __name__ == "__main__":
-    main()
+    run_experiments()
