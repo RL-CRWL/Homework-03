@@ -202,7 +202,7 @@ def main():
     
     #create heatmap
     plt.figure(figsize=(8, 6))
-    im = plt.imshow(value_grid)
+    im = plt.imshow(value_grid, cmap='viridis')
     plt.colorbar(im, label='Value')
     plt.title('Value Function Heatmap (γ ≈ 1)')
     plt.xlabel('Column')
@@ -212,7 +212,7 @@ def main():
     for i in range(env.size):
         for j in range(env.size):
             text = plt.text(j, i, f'{value_grid[i, j]:.1f}',
-                           ha="centre", va="centre", color="w")
+                           ha="center", va="center", color="w")
     
     plt.tight_layout()
     plt.savefig('value_heatmap_gamma1.png', dpi=150, bbox_inches='tight')
