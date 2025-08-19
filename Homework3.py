@@ -104,9 +104,6 @@ def policy_evaluation_inplace(env, policy, gamma=1.0, theta=0.01, max_iterations
                 
                 #Bellman equation
                 next_value = V[next_state]
-                #potential overflow
-                # if next_value < -1e10:
-                #     next_value = -1e10
                 
                 contribution = policy[state][action] * (reward + gamma * next_value)
                 new_v += contribution
@@ -161,9 +158,6 @@ def policy_evaluation_two_array(env, policy, gamma=1.0, theta=0.01, max_iteratio
                 
                 #Bellman equation
                 next_value = V_old[next_state]
-                #potential overflow
-                # if next_value < -1e10:
-                #     next_value = -1e10
                 
                 contribution = policy[state][action] * (reward + gamma * next_value)
                 new_v += contribution
@@ -208,7 +202,6 @@ def main():
     plt.xlabel('Column')
     plt.ylabel('Row')
     
-    # Add text annotations
     for i in range(env.size):
         for j in range(env.size):
             text = plt.text(j, i, f'{value_grid[i, j]:.1f}',
